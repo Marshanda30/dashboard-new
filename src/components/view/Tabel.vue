@@ -80,16 +80,16 @@
                     <tbody>
                       <tr v-for="(user, index) in users" :key="user.id">
                                 <td>{{ index + 1}}</td>
-                                <td>{{ user.tegangan_ac }}</td>
-                                <td>{{ user.arus_ac }}</td>
-                                <td>{{ user.tegangan_dc1 }}</td>
-                                <td>{{ user.arus_dc1 }}</td>
-                                <td>{{ user.tegangan_dc2 }}</td>
-                                <td>{{ user.arus_dc2 }}</td>
-                                <td>{{ user.tegangan_dc3 }}</td>
-                                <td>{{ user.arus_dc3 }}</td>
-                                <td>{{ user.tegangan_dc4 }}</td>
-                                <td>{{ user.arus_dc4 }}</td>
+                                <td>{{ user.tegangan_ac + " V"}}</td>
+                                <td>{{ user.arus_ac + " A"}}</td>
+                                <td>{{ user.tegangan_dc1 + " V" }}</td>
+                                <td>{{ user.arus_dc1 + " A"}}</td>
+                                <td>{{ user.tegangan_dc2 + " V"}}</td>
+                                <td>{{ user.arus_dc2 + " A"}}</td>
+                                <td>{{ user.tegangan_dc3 + " V"}}</td>
+                                <td>{{ user.arus_dc3 + " A"}}</td>
+                                <td>{{ user.tegangan_dc4 + " V"}}</td>
+                                <td>{{ user.arus_dc4 + " A"}}</td>
                                 <td>{{ new Date(user.updatedAt).toLocaleString()}}</td>
                         <td class="text-center">
                           <router-link :to="{ name: 'editsensor',  params: {id: user.id}}">
