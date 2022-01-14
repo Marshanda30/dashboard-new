@@ -101,7 +101,7 @@
 </template>
 
 <script>
-  import 'jquery/dist/jquery.min.js';
+import 'jquery/dist/jquery.min.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "datatables.net-dt/js/dataTables.dataTables"
 import "datatables.net-dt/css/jquery.dataTables.min.css"
