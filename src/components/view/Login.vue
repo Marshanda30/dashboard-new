@@ -78,7 +78,7 @@
           })
           .catch(err => {
             Swal.fire(
-              "Gagal", "Anda Gagal Login", "warning");
+              "Gagal", "Anda Gagal Login, Cek Username / Password Anda", "warning");
             console.log(err)
           })
       }

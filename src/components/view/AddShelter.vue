@@ -7,6 +7,9 @@
         <div class="row">
           <div class="col-12">
             <form @submit.prevent="saveProduct">
+              <div class="card-header">
+                <h2 class="card-title">TAMBAH DATA SHELTER</h2> 
+              </div>
               <div class="card-body">
                 <div class="form-group">
                   <label for="name">Nama Shelter</label>

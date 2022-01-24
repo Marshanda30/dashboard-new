@@ -7,6 +7,9 @@
                 <div class="row">
                     <div class="col-12">
                         <form @submit.prevent="saveSensor">
+                            <div class="card-header">
+                                <h2 class="card-title">TAMBAH DATA SENSOR</h2>
+                            </div>
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">Tegangan AC</label>
@@ -110,7 +113,7 @@
                     .post("https://btsapii.herokuapp.com/api/sensor/create", this.form)
                     .then(res => {
                         Swal.fire(
-                            "Berhasil","Data Anda Berhasil Ditambahkan","success");
+                            "Berhasil", "Data Anda Berhasil Ditambahkan", "success");
                         console.log(res)
                         this.$router.push({
                             name: "Tabel"
@@ -118,7 +121,7 @@
                     })
                     .catch(err => {
                         Swal.fire(
-                            "Gagal","Data Anda Gagal Ditambahkan","warning");
+                            "Gagal", "Data Anda Gagal Ditambahkan", "warning");
                         console.log(err)
                     })
             },
