@@ -10,7 +10,7 @@
             <div class="col-sm-6">
               <h1 class="m-0"></h1>
             </div><!-- /.col -->
-            <div class="col-sm-6">
+            <div class="col-sm-6" style="margin-left:70%;">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="/#/home">Home</a></li>
                 <li class="breadcrumb-item active">Realtime</li>
@@ -24,21 +24,11 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="card">
+                    <div class="card" style="display:table-cell">
                         <div class="card-header">
                             <h2 class="card-title">Data Live Realtime</h2>
 
-                            <div class="card-tools">
-                              <div class="input-group input-group-sm" style="width: 150px;">
-                                <input type="text" name="table_search" class="form-control float-right" placeholder="Cari Tanggal">
-                                  
-                                  <div class="input-group-append">
-                                    <button type="submit" class="btn btn-default">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                  </div>
-                              </div>
-                            </div>
+                            
                         </div> <br/>
                         <div class="col-12">  
                           <div class="alert alert-info" role="alert">
@@ -47,7 +37,7 @@
                         </div>
                         <!-- card body -->
                         <div class="card-body">
-                          <table class="table table-bordered table-striped">
+                          <table class="table table-bordered table-striped" id="datatable">
                             <thead>
                               <tr class="text-center">
                                 <th>No</th>
@@ -108,6 +98,11 @@ import FootBar from '../layout/Footbar.vue'
 
 import axios from "axios";
 import Swal from 'sweetalert2';
+import 'jquery/dist/jquery.min.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'datatables.net-dt/js/dataTables.dataTables';
+import 'datatables.net-dt/css/jquery.dataTables.min.css';
+import $ from 'jquery';
 
 export default {
   components: {
@@ -135,7 +130,24 @@ export default {
   },
   // https://btsapii.herokuapp.com/api/sensor
   mounted() {
-    this.getUsers();
+    this.getUsers(
+      axios.get("https://btsapii.herokuapp.com/api/sensor/realtime")
+      .then((res) => {
+        this.users = res.data.data;
+        console.log(res)
+        $(function () {
+          $('#datatable').DataTable({
+            language: {
+              info: "",
+              previous: "<i class='fa fa-chevron-left'></i>",
+              next: "<i class='fa fa-chevron-right'><i>",
+              last: "last"
+            }
+          })
+        })
+      })
+
+    );
     this.timer = setInterval(this.getUsers, 5000);
   },
   methods: {

@@ -11,7 +11,7 @@
               <h1 class="m-0"></h1>
             </div>
             <!-- /.col -->
-            <div class="col-sm-6">
+            <div class="col-sm-6" style="margin-left:60%;">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="/#/home">Home</a></li>
                 <li class="breadcrumb-item active">Sensor</li>
@@ -28,21 +28,11 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-12">
-              <div class="card">
+              <div class="card" style="display:table-cell">
                 <div class="card-header">
                   <h2 class="card-title">Data Sensor</h2>
 
-                  <div class="card-tools">
-                    <div class="input-group input-group-sm" style="width: 150px;">
-                      <input type="text" v-model="search" class="form-control float-right" placeholder="Cari Sensor" />
-
-                      <div class="input-group-append">
-                        <button type="submit" class="btn btn-default">
-                          <i class="fas fa-search"></i>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+              
                 </div>
                 <br />
                 <div class="col-12">
@@ -59,38 +49,38 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                  <table class="table table-bordered table-striped">
+                  <table class="table table-bordered table-striped" id="datatable">
                     <thead>
                       <tr class="text-center">
                         <th>No</th>
-                                <th>TegAC</th>
-                                <th>ArusAC</th>
-                                <th>TegDC1</th>
-                                <th>ArusDC1</th>
-                                <th>TegDC2</th>
-                                <th>ArusDC2</th>
-                                <th>TegDC3</th>
-                                <th>ArusDC3</th>
-                                <th>TegDC4</th>
-                                <th>ArusDC4</th>
-                                <th>Date</th>
-                                <th>Actions</th>
+                        <th>AC(V)</th>
+                        <th>AC(A)</th>
+                        <th>DC1(V)</th>
+                        <th>DC1(A)</th>
+                        <th>DC2(V)</th>
+                        <th>DC2(A)</th>
+                        <th>DC3(V)</th>
+                        <th>DC3(A)</th>
+                        <th>DC4(V)</th>
+                        <th>DC4(A)</th>
+                        <th>Date</th>
+                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr v-for="(user, index) in users" :key="user.id">
-                                <td>{{ index + 1}}</td>
-                                <td>{{ user.tegangan_ac + " V"}}</td>
-                                <td>{{ user.arus_ac + " A"}}</td>
-                                <td>{{ user.tegangan_dc1 + " V" }}</td>
-                                <td>{{ user.arus_dc1 + " A"}}</td>
-                                <td>{{ user.tegangan_dc2 + " V"}}</td>
-                                <td>{{ user.arus_dc2 + " A"}}</td>
-                                <td>{{ user.tegangan_dc3 + " V"}}</td>
-                                <td>{{ user.arus_dc3 + " A"}}</td>
-                                <td>{{ user.tegangan_dc4 + " V"}}</td>
-                                <td>{{ user.arus_dc4 + " A"}}</td>
-                                <td>{{ new Date(user.updatedAt).toLocaleString()}}</td>
+                        <td>{{ index + 1}}</td>
+                        <td>{{ user.tegangan_ac + " V"}}</td>
+                        <td>{{ user.arus_ac + " A"}}</td>
+                        <td>{{ user.tegangan_dc1 + " V" }}</td>
+                        <td>{{ user.arus_dc1 + " A"}}</td>
+                        <td>{{ user.tegangan_dc2 + " V"}}</td>
+                        <td>{{ user.arus_dc2 + " A"}}</td>
+                        <td>{{ user.tegangan_dc3 + " V"}}</td>
+                        <td>{{ user.arus_dc3 + " A"}}</td>
+                        <td>{{ user.tegangan_dc4 + " V"}}</td>
+                        <td>{{ user.arus_dc4 + " A"}}</td>
+                        <td>{{ new Date(user.updatedAt).toLocaleString()}}</td>
                         <td class="text-center">
                           <router-link :to="{ name: 'editsensor',  params: {id: user.id}}">
                             <button class="btn btn-info btn-sm selected">Edit</button>
@@ -120,7 +110,12 @@
   import FootBar from "../layout/Footbar.vue";
 
   import axios from "axios";
-  import Swal from 'sweetalert2'
+  import Swal from 'sweetalert2';
+  import 'jquery/dist/jquery.min.js';
+  import 'bootstrap/dist/css/bootstrap.min.css';
+  import 'datatables.net-dt/js/dataTables.dataTables';
+  import 'datatables.net-dt/css/jquery.dataTables.min.css';
+  import $ from 'jquery';
 
   export default {
     components: {
@@ -136,7 +131,23 @@
       };
     },
     mounted() {
-      this.getUsers();
+      this.getUsers(
+        axios.get("https://btsapii.herokuapp.com/api/sensor")
+        .then((res) => {
+          this.users = res.data.data;
+          console.log(res)
+          $(function () {
+            $('#datatable').DataTable({
+              language: {
+                info: "",
+                previous: "<i class='fa fa-chevron-left'></i>",
+                next: "<i class='fa fa-chevron-right'><i>",
+                last: "last"
+              }
+            })
+          })
+        })
+      );
       this.timer = setInterval(this.getUsers, 5000);
     },
     methods: {
