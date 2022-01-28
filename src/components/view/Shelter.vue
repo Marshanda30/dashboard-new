@@ -144,7 +144,6 @@
           .get("https://btsapii.herokuapp.com/api/shelter")
           .then((res) => {
             this.items = res.data.data;
-            $('#datatable').DataTable();
           })
           .catch((err) => {
             console.log(err);

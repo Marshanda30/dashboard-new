@@ -4,12 +4,15 @@ import VueRouter from 'vue-router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Vuex from 'vuex'
+import { ClientTable } from 'vue-tables-2';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 Vue.use(Vuex)
 
 
 axios.defaults.baseURL = 'https://apibts.herokuapp.com/api/sensor'
 Vue.use(VueAxios, axios)
+Vue.use(ClientTable);
 Vue.use(VueRouter)
 
 let routes =[
